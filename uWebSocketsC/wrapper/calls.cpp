@@ -13,40 +13,40 @@ Server* create_threaded_server(int port, SocketConfig config) {
 
     };
 
-    uWS::App::WebSocketBehavior<UserData> behavior;
-    behavior.compression = (uWS::CompressOptions) config.compression;
-    behavior.maxPayloadLength = config.maxPayloadLength;
-    behavior.idleTimeout = config.idleTimeout;
-    behavior.maxBackpressure = config.maxBackpressure;
-    behavior.closeOnBackpressureLimit = config.closeOnBackpressureLimit;
-    behavior.resetIdleTimeoutOnSend = config.resetIdleTimeoutOnSend;
-    behavior.sendPingsAutomatically = config.sendPingsAutomatically;
-    behavior.open = [](auto* ws) {
-        
-    };
-    behavior.message = [&server](auto* ws, std::string_view message, uWS::OpCode opCode) {
-
-    };
-    behavior.drain = [](auto* ws) {
-
-    };
-    behavior.ping = [](auto* ws) {
-
-    };
-    behavior.pong = [](auto* ws) {
-
-    };
-    behavior.close = [](auto* ws, int code, std::string_view message) {
-
-    };
-
-    server->ws<UserData>(std::string("/*"), std::move(behavior)).listen(port, [](us_listen_socket_t* listen_socket) {
-        if (listen_socket) {
-            std::cout << "Thread " << std::this_thread::get_id() << " listening" << std::endl;
-        } else {
-            std::cout << "Thread " << std::this_thread::get_id() << " failed to listen" << std::endl;
-        }
-    }).run();
+//    uWS::App::WebSocketBehavior<UserData> behavior;
+//    behavior.compression = (uWS::CompressOptions) config.compression;
+//    behavior.maxPayloadLength = config.maxPayloadLength;
+//    behavior.idleTimeout = config.idleTimeout;
+//    behavior.maxBackpressure = config.maxBackpressure;
+//    behavior.closeOnBackpressureLimit = config.closeOnBackpressureLimit;
+//    behavior.resetIdleTimeoutOnSend = config.resetIdleTimeoutOnSend;
+//    behavior.sendPingsAutomatically = config.sendPingsAutomatically;
+//    behavior.open = [](auto* ws) {
+//
+//    };
+//    behavior.message = [&server](auto* ws, std::string_view message, uWS::OpCode opCode) {
+//
+//    };
+//    behavior.drain = [](auto* ws) {
+//
+//    };
+//    behavior.ping = [](auto* ws) {
+//
+//    };
+//    behavior.pong = [](auto* ws) {
+//
+//    };
+//    behavior.close = [](auto* ws, int code, std::string_view message) {
+//
+//    };
+//
+//    server->ws<UserData>(std::string("/*"), std::move(behavior)).listen(port, [](us_listen_socket_t* listen_socket) {
+//        if (listen_socket) {
+//            std::cout << "Thread " << std::this_thread::get_id() << " listening" << std::endl;
+//        } else {
+//            std::cout << "Thread " << std::this_thread::get_id() << " failed to listen" << std::endl;
+//        }
+//    }).run();
 
     // server->ws<void>("/*", {
     //     .compression = uWS::DISABLED,
