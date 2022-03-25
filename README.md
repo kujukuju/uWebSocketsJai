@@ -1,3 +1,3 @@
 ### Compile
 
-* `git clone --recurse-submodules thismodule.git`
+* `git clone --recurse-submodules git@github.com:kujukuju/uWebSocketsJai.git`
