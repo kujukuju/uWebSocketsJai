@@ -1,7 +1,8 @@
 
+#define EXPORT __declspec(dllexport)
+
 #include "App.h"
 
-#define EXPORT __declspec(dllexport)
 
 extern "C" {
 

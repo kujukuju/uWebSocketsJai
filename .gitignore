@@ -2,3 +2,4 @@ build/
 uWebSocketsC/build
 cmake-*
 uWebSocketsC/cmake-*
+.idea/
