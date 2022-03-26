@@ -1,39 +1,22 @@
-
-CompressOptions :: u16 {
-    DISABLED = 0;
-    SHARED_COMPRESSOR = 1;
-    SHARED_DECOMPRESSOR = 1 << 8;
-    DEDICATED_DECOMPRESSOR_32KB = 15 << 8;
-    DEDICATED_DECOMPRESSOR_16KB = 14 << 8;
-    DEDICATED_DECOMPRESSOR_8KB = 13 << 8;
-    DEDICATED_DECOMPRESSOR_4KB = 12 << 8;
-    DEDICATED_DECOMPRESSOR_2KB = 11 << 8;
-    DEDICATED_DECOMPRESSOR_1KB = 10 << 8;
-    DEDICATED_DECOMPRESSOR_512B = 9 << 8;
-    DEDICATED_DECOMPRESSOR = 15 << 8;
-    DEDICATED_COMPRESSOR_3KB = 9 << 4 | 1;
-    DEDICATED_COMPRESSOR_4KB = 9 << 4 | 2;
-    DEDICATED_COMPRESSOR_8KB = 10 << 4 | 3;
-    DEDICATED_COMPRESSOR_16KB = 11 << 4 | 4;
-    DEDICATED_COMPRESSOR_32KB = 12 << 4 | 5;
-    DEDICATED_COMPRESSOR_64KB = 13 << 4 | 6;
-    DEDICATED_COMPRESSOR_128KB = 14 << 4 | 7;
-    DEDICATED_COMPRESSOR_256KB = 15 << 4 | 8;
-    DEDICATED_COMPRESSOR = 15 << 4 | 8;
+uws_app_t :: struct {
+    
 }
 
-SocketConfig :: struct {
-    compression: CompressOptions = .DISABLED;
-    maxPayloadLength: u32 = 16 * 1024 * 1024;
-    idleTimeout: u16 = 120;
-    maxBackpressure: u32 = 16 * 1024 * 1024;
-    closeOnBackpressureLimit: bool = false;
-    resetIdleTimeoutOnSend: bool = true;
-    sendPingsAutomatically: bool = true;
+us_socket_context_options_t :: struct {
+    key_file_name: *u8;
+    cert_file_name: *u8;
+    passphrase: *u8;
+    dh_params_file_name: *u8;
+    ssl_prefer_low_memory_usage: s32;
 };
 
-call :: () -> void #foreign uwebsockets;
+uws_create_app :: (ssl: s32, options: us_socket_context_options_t) -> *uws_app_t #foreign uwebsockets;
+uws_app_run :: (ssl: s32, app: *uws_app_t) -> void #foreign uwebsockets;
 
 #scope_file
 
-uwebsockets :: #foreign_library "bin/win/uwebsockets";
+#if OS == .WINDOWS {
+  uwebsockets :: #foreign_library "bin/win/uwebsockets";
+} else #if OS == .LINUX {
+  uwebsockets :: #foreign_library "bin/linux/libuwebsockets";
+}
